@@ -38,10 +38,24 @@
                     <span class="label">Tools</span>
                     <div class="btn active" id="btn-brush">Brush</div>
                     <div class="btn" id="btn-eraser">Eraser</div>
+                    <span class="label">Brush Type</span>
+                    <select id="brush-type">
+                        <option value="classic">Classic</option>
+                        <option value="spray">Spray</option>
+                        <option value="marker">Marker</option>
+                    </select>
                 </div>
-                <div class="tool-section">
-                    <span class="label">Thickness:</span>
-                    <input type="range" id="thickness" min="1" max="100" value="10">
+                <div class="tool-section brush-size">
+                    <div class="range-header">
+                        <span class="label">Brush Size</span>
+                        <div class="range-value">
+                            <input type="number" id="thickness-number" min="1" max="100" step="0.1" value="10.0">
+                            <span class="unit">px</span>
+                        </div>
+                    </div>
+                    <div class="range-track">
+                        <input type="range" id="thickness" min="1" max="100" step="0.1" value="10">
+                    </div>
                 </div>
                 <div class="tool-section">
                     <span class="label">Colors</span>
@@ -62,7 +76,9 @@
                     <div class="btn" id="btn-save">Save  PNG</div>
                 </div>
             </div>
-            <div class="canvas-wrapper" id="canvas-wrapper"></div>
+            <div class="canvas-wrapper" id="canvas-wrapper">
+                <div id="cursor-preview"></div>
+            </div>
         </div>
     </div>
     <script src="index.js"></script>
