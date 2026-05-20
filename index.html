@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 7 Aero</title>
+    <title>Aurora OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- BIOS BOOT SCREEN -->
+    <div id="bootScreen" class="boot-screen">
+        <div class="boot-header">AURORA BIOS v2.7</div>
+        <div class="boot-lines" id="bootLines"></div>
+        <div class="boot-footer">Press DEL to enter Setup</div>
+    </div>
+
     <!-- DESKTOP -->
     <div id="desktop" class="desktop">
         <div class="wallpaper"></div>
@@ -41,6 +51,10 @@
                 <div class="icon-placeholder folder">📁</div>
                 <span>Explorador</span>
             </div>
+            <div class="desktop-icon" data-app="paint">
+                <div class="icon-placeholder paint">🎨</div>
+                <span>Paint</span>
+            </div>
             <div class="desktop-icon" data-app="internet">
                 <div class="icon-placeholder globe">🌐</div>
                 <span>Internet</span>
@@ -58,8 +72,8 @@
                 <span class="start-orb"></span>
             </button>
             <div class="quick-launch">
-                <div class="ql-icon folder">📁</div>
-                <div class="ql-icon globe">🌐</div>
+                <div class="ql-icon folder" data-app="explorer">📁</div>
+                <div class="ql-icon globe" data-app="internet">🌐</div>
             </div>
         </div>
         <div class="taskbar-middle" id="taskbarMiddle"></div>
@@ -76,12 +90,13 @@
     <div id="startMenu" class="start-menu hidden">
         <div class="start-menu-left">
             <div class="start-menu-items">
-                <div class="start-menu-item"><span class="sm-icon">🌐</span><span>Internet Explorer</span></div>
-                <div class="start-menu-item"><span class="sm-icon">📝</span><span>Bloco de Notas</span></div>
-                <div class="start-menu-item"><span class="sm-icon">🧮</span><span>Calculadora</span></div>
-                <div class="start-menu-item"><span class="sm-icon">🎨</span><span>Paint</span></div>
+                <div class="start-menu-item" data-app="internet"><span class="sm-icon">🌐</span><span>Internet Explorer</span></div>
+                <div class="start-menu-item" data-app="notes"><span class="sm-icon">📝</span><span>Bloco de Notas</span></div>
+                <div class="start-menu-item" data-app="calc"><span class="sm-icon">🧮</span><span>Calculadora</span></div>
+                <div class="start-menu-item" data-app="paint"><span class="sm-icon">🎨</span><span>Paint</span></div>
+                <div class="start-menu-item" data-app="explorer"><span class="sm-icon">📁</span><span>Explorer</span></div>
                 <div class="start-menu-sep"></div>
-                <div class="start-menu-item"><span class="sm-icon">⚙️</span><span>Painel de Controle</span></div>
+                <div class="start-menu-item" data-app="settings"><span class="sm-icon">⚙️</span><span>Painel de Controle</span></div>
                 <div class="start-menu-item shutdown-item"><span class="sm-icon power">⏻</span><span>Desligar</span></div>
             </div>
         </div>
