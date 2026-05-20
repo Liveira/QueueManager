@@ -45,8 +45,20 @@ function applyState(stateData) {
         img.src = src;
         img.onload = () => {
             const context = layers[i].ctx;
+            const prevComposite = context.globalCompositeOperation;
+            const prevAlpha = context.globalAlpha;
+            const prevShadowBlur = context.shadowBlur;
+            const prevShadowColor = context.shadowColor;
+            context.globalCompositeOperation = 'source-over';
+            context.globalAlpha = 1;
+            context.shadowBlur = 0;
+            context.shadowColor = 'transparent';
             context.clearRect(0, 0, layers[i].element.width, layers[i].element.height);
             context.drawImage(img, 0, 0);
+            context.globalCompositeOperation = prevComposite;
+            context.globalAlpha = prevAlpha;
+            context.shadowBlur = prevShadowBlur;
+            context.shadowColor = prevShadowColor;
         };
     });
     refreshLayersPanel();
