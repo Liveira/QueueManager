@@ -3,117 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurora OS</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Under Development - Canvas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* CABEÇALHO */
+        header {
+            text-align: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
+            border-bottom: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 13px;
+            font-weight: 300;
+            color: #a0a0a0;
+        }
+
+        /* ÁREA PRINCIPAL */
+        .main-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 80px);
+        }
+
+        /* BARRA DE FERRAMENTAS (GLASSMORPHISM) */
+        .toolbar {
+            width: 260px;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto;
+        }
+
+        .tool-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tool-section h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        /* BOTÕES DE FERRAMENTAS */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn:hover { background: #3a3a3a; }
+        .btn.active {
+            background: #4f46e5;
+            border-color: #6366f1;
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+        }
+
+        /* SLIDER DE ESPESSURA */
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #4f46e5;
+        }
+
+        /* CORES */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .color-swatch {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.1s;
+        }
+
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.active { border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+        .custom-color-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2a2a2a;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: none;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 1px solid #555; border-radius: 4px; }
+
+        /* AÇÕES RECOMENDADAS */
+        .btn-action {
+            background: #1e1e1e;
+            border: 1px solid #555;
+        }
+        .btn-action:hover { background: #333; }
+        .btn-clear { color: #ff4757; border-color: #ff4757; background: transparent; }
+        .btn-clear:hover { background: rgba(255, 71, 87, 0.1); }
+        .btn-save { background: #10ac84; border-color: #1dd1a1; }
+        .btn-save:hover { background: #1dd1a1; }
+
+        /* ÁREA DO CANVAS */
+        .canvas-wrapper {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f0f0f;
+        }
+
+        canvas {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            cursor: crosshair;
+            touch-action: none; /* Previne scroll no celular ao desenhar */
+        }
+    </style>
 </head>
 <body>
-    <!-- BIOS BOOT SCREEN -->
-    <div id="bootScreen" class="boot-screen">
-        <div class="boot-header">AURORA BIOS v2.7</div>
-        <div class="boot-lines" id="bootLines"></div>
-        <div class="boot-footer">Press DEL to enter Setup</div>
+
+    <header>
+        <h1>UNDER DEVELOPMENT</h1>
+        <p>O site ainda está sendo desenvolvido. Enquanto isso, fique à vontade para desenhar o que quiser x3</p>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="toolbar">
+            
+            <div class="tool-section">
+                <h3>Ferramentas</h3>
+                <div class="tool-grid">
+                    <button class="btn active" id="tool-brush" onclick="setTool('brush')">🖌️ Pincel</button>
+                    <button class="btn" id="tool-pencil" onclick="setTool('pencil')">✏️ Lápis</button>
+                    <button class="btn" id="tool-eraser" style="grid-column: span 2;" onclick="setTool('eraser')">🧼 Borracha</button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>Espessura (<span id="size-label">5</span>px)</h3>
+                <input type="range" id="size-slider" min="1" max="50" value="5" oninput="updateSize(this.value)">
+            </div>
+
+            <div class="tool-section">
+                <h3>Paleta de Cores</h3>
+                <div class="color-grid" id="color-palette">
+                    </div>
+                <div class="custom-color-wrapper">
+                    <input type="color" id="custom-color" value="#000000" oninput="setCustomColor(this.value)">
+                    <span style="font-size: 12px; color: #ccc;">Cor Livre</span>
+                </div>
+            </div>
+
+            <div style="flex-grow: 1;"></div> <div class="tool-section">
+                <h3>Ações</h3>
+                <button class="btn btn-save" onclick="saveCanvas()">💾 Salvar Arte</button>
+                <button class="btn btn-clear" onclick="clearCanvas()">🗑️ Limpar Tela</button>
+            </div>
+
+        </div>
+
+        <div class="canvas-wrapper" id="canvas-wrapper">
+            <canvas id="drawing-canvas"></canvas>
+        </div>
+
     </div>
 
-    <!-- DESKTOP -->
-    <div id="desktop" class="desktop">
-        <div class="wallpaper"></div>
-        <div class="aero-streaks"></div>
-        <div class="aero-bokeh"></div>
+    <script>
+        // CONFIGURAÇÕES INICIAIS DO CANVAS
+        const canvas = document.getElementById('drawing-canvas');
+        const ctx = canvas.getContext('2d');
+        const wrapper = document.getElementById('canvas-wrapper');
 
-        <!-- Bolhas Frutiger Aero -->
-        <div class="bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
+        // ESTADOS DA APLICAÇÃO
+        let isDrawing = false;
+        let currentTool = 'brush'; // brush, pencil, eraser
+        let currentColor = '#000000';
+        let currentSize = 5;
 
-        <!-- Ícones do Desktop -->
-        <div class="desktop-icons">
-            <div class="desktop-icon" data-app="computer">
-                <div class="icon-placeholder computer">💻</div>
-                <span>Computador</span>
-            </div>
-            <div class="desktop-icon" data-app="recycle">
-                <div class="icon-placeholder recycle">🗑️</div>
-                <span>Lixeira</span>
-            </div>
-            <div class="desktop-icon" data-app="explorer">
-                <div class="icon-placeholder folder">📁</div>
-                <span>Explorador</span>
-            </div>
-            <div class="desktop-icon" data-app="paint">
-                <div class="icon-placeholder paint">🎨</div>
-                <span>Paint</span>
-            </div>
-            <div class="desktop-icon" data-app="internet">
-                <div class="icon-placeholder globe">🌐</div>
-                <span>Internet</span>
-            </div>
-        </div>
+        // AJUSTAR O TAMANHO DO CANVAS PARA CABER NA TELA
+        function resizeCanvas() {
+            // Salvar a arte atual antes de redimensionar
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            canvas.width = wrapper.clientWidth - 40;
+            canvas.height = wrapper.clientHeight - 40;
+            
+            // Fundo branco padrão
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Restaurar a arte (se houver)
+            if (imgData) {
+                ctx.putImageData(imgData, 0, 0);
+            }
+        }
 
-        <!-- Janelas dinâmicas -->
-        <div id="windowsContainer"></div>
-    </div>
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Chama na primeira vez
 
-    <!-- TASKBAR -->
-    <div class="taskbar">
-        <div class="taskbar-left">
-            <button class="start-button" id="startBtn">
-                <span class="start-orb"></span>
-            </button>
-            <div class="quick-launch">
-                <div class="ql-icon folder" data-app="explorer">📁</div>
-                <div class="ql-icon globe" data-app="internet">🌐</div>
-            </div>
-        </div>
-        <div class="taskbar-middle" id="taskbarMiddle"></div>
-        <div class="taskbar-right">
-            <div class="system-tray">
-                <div class="tray-icon">🔊</div>
-                <div class="tray-icon">📶</div>
-                <div class="clock" id="clock">00:00</div>
-            </div>
-        </div>
-    </div>
+        // PALETA DE CORES RÁPIDAS
+        const colors = ['#000000', '#ffffff', '#ff4757', '#ffa502', '#2ed573', '#1e90ff', '#5352ed', '#ff6b81'];
+        const paletteContainer = document.getElementById('color-palette');
 
-    <!-- START MENU -->
-    <div id="startMenu" class="start-menu hidden">
-        <div class="start-menu-left">
-            <div class="start-menu-items">
-                <div class="start-menu-item" data-app="internet"><span class="sm-icon">🌐</span><span>Internet Explorer</span></div>
-                <div class="start-menu-item" data-app="notes"><span class="sm-icon">📝</span><span>Bloco de Notas</span></div>
-                <div class="start-menu-item" data-app="calc"><span class="sm-icon">🧮</span><span>Calculadora</span></div>
-                <div class="start-menu-item" data-app="paint"><span class="sm-icon">🎨</span><span>Paint</span></div>
-                <div class="start-menu-item" data-app="explorer"><span class="sm-icon">📁</span><span>Explorer</span></div>
-                <div class="start-menu-sep"></div>
-                <div class="start-menu-item" data-app="settings"><span class="sm-icon">⚙️</span><span>Painel de Controle</span></div>
-                <div class="start-menu-item shutdown-item"><span class="sm-icon power">⏻</span><span>Desligar</span></div>
-            </div>
-        </div>
-        <div class="start-menu-right">
-            <div class="user-profile">
-                <div class="user-avatar"></div>
-                <div class="user-name">Usuário</div>
-            </div>
-            <div class="recent-list">
-                <div class="recent-item">📁 Documentos</div>
-                <div class="recent-item">🖼️ Imagens</div>
-                <div class="recent-item">🎵 Músicas</div>
-                <div class="recent-item">💻 Computador</div>
-            </div>
-        </div>
-    </div>
+        colors.forEach(color => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = color;
+            if (color === '#000000') swatch.classList.add('active'); // Preto por padrão
+            
+            // Bordinha escura para o branco aparecer no fundo escuro
+            if (color === '#ffffff') swatch.style.border = '1px solid #444'; 
 
-    <script src="script.js"></script>
+            swatch.onclick = () => setColor(color, swatch);
+            paletteContainer.appendChild(swatch);
+        });
+
+        // FUNÇÕES DE CONTROLE DE FERRAMENTAS
+        function setTool(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-grid .btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tool-${tool}`).classList.add('active');
+        }
+
+        function setColor(color, element) {
+            if (currentTool === 'eraser') setTool('brush'); // Tira da borracha se escolher cor
+            currentColor = color;
+            document.getElementById('custom-color').value = color; // Sincroniza o color picker
+            
+            document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+            if (element) element.classList.add('active');
+        }
+
+        function setCustomColor(color) {
+            if (currentTool === 'eraser') setTool('brush');
+            currentColor = color;
+            document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        }
+
+        function updateSize(size) {
+            currentSize = size;
+            document.getElementById('size-label').innerText = size;
+        }
+
+        function clearCanvas() {
+            if (confirm('Tem certeza que deseja apagar tudo?')) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function saveCanvas() {
+            const link = document.createElement('a');
+            link.download = 'minha-arte-impecavel.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // LÓGICA DE DESENHO IMPECÁVEL (MOUSE E TOUCH)
+        function getCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Suporte para mouse e touch no celular
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getCoordinates(e);
+            
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            draw(e); // Para fazer um ponto só com um clique
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); // Evita scroll em telas touch
+            
+            const pos = getCoordinates(e);
+
+            // Configuração do Pincel/Lápis/Borracha
+            ctx.lineWidth = currentSize;
+            
+            if (currentTool === 'eraser') {
+                ctx.strokeStyle = '#ffffff'; // Apaga pintando de branco
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            } else if (currentTool === 'pencil') {
+                ctx.strokeStyle = currentColor;
+                ctx.lineCap = 'square';
+                ctx.lineJoin = 'miter';
+            } else { // Pincel (Brush)
+                ctx.strokeStyle = currentColor;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            }
+
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                ctx.closePath();
+                isDrawing = false;
+            }
+        }
+
+        // EVENTOS DE MOUSE
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // EVENTOS DE TOUCH (CELULAR)
+        canvas.addEventListener('touchstart', startDrawing, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchcancel', stopDrawing);
+    </script>
 </body>
 </html>
