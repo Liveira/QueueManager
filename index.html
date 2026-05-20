@@ -3,45 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QueueManager — Tema Aero (Windows 7 style)</title>
+    <title>Windows 7 Aero</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Para usar a fonte Frutiger, instale-a no Windows e ajuste o CSS se necessário. -->
 </head>
 <body>
-    <div class="desktop">
+    <!-- DESKTOP -->
+    <div id="desktop" class="desktop">
         <div class="wallpaper"></div>
+        <div class="aero-streaks"></div>
+        <div class="aero-bokeh"></div>
 
-        <div class="window" style="left:80px; top:80px;">
-            <div class="titlebar">
-                <div class="titlebar-left">
-                    <img class="icon-small" src="icons/folder.png" alt="Ícone">
-                    <span class="title">QueueManager</span>
-                </div>
-                <div class="titlebar-right">
-                    <button class="btn">_</button>
-                    <button class="btn">□</button>
-                    <button class="btn close">×</button>
-                </div>
+        <!-- Ícones do Desktop -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-app="computer">
+                <div class="icon-placeholder computer">💻</div>
+                <span>Computador</span>
             </div>
-
-            <div class="toolbar">
-                <img class="icon" src="icons/explorer.png" alt="Explorer">
-                <img class="icon" src="icons/computer.png" alt="Computer">
-                <img class="icon" src="icons/network.png" alt="Network">
+            <div class="desktop-icon" data-app="recycle">
+                <div class="icon-placeholder recycle">🗑️</div>
+                <span>Lixeira</span>
             </div>
-
-            <div class="content">
-                <p>Mockup visual estilo Frutiger Aero (Windows 7).</p>
-                <p>Coloque os ícones reais do seu Windows dentro da pasta <strong>icons/</strong>.</p>
+            <div class="desktop-icon" data-app="explorer">
+                <div class="icon-placeholder folder">📁</div>
+                <span>Explorador</span>
+            </div>
+            <div class="desktop-icon" data-app="internet">
+                <div class="icon-placeholder globe">🌐</div>
+                <span>Internet</span>
             </div>
         </div>
 
-        <div class="taskbar">
-            <div class="start">Iniciar</div>
-            <div class="taskbar-icons">
-                <img class="task-icon" src="icons/explorer.png" alt="Explorer">
+        <!-- Janelas dinâmicas -->
+        <div id="windowsContainer"></div>
+    </div>
+
+    <!-- TASKBAR -->
+    <div class="taskbar">
+        <div class="taskbar-left">
+            <button class="start-button" id="startBtn">
+                <span class="start-orb"></span>
+            </button>
+            <div class="quick-launch">
+                <div class="ql-icon folder">📁</div>
+                <div class="ql-icon globe">🌐</div>
             </div>
-            <div class="tray">12:00</div>
+        </div>
+        <div class="taskbar-middle" id="taskbarMiddle"></div>
+        <div class="taskbar-right">
+            <div class="system-tray">
+                <div class="tray-icon">🔊</div>
+                <div class="tray-icon">📶</div>
+                <div class="clock" id="clock">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- START MENU -->
+    <div id="startMenu" class="start-menu hidden">
+        <div class="start-menu-left">
+            <div class="start-menu-items">
+                <div class="start-menu-item"><span class="sm-icon">🌐</span><span>Internet Explorer</span></div>
+                <div class="start-menu-item"><span class="sm-icon">📝</span><span>Bloco de Notas</span></div>
+                <div class="start-menu-item"><span class="sm-icon">🧮</span><span>Calculadora</span></div>
+                <div class="start-menu-item"><span class="sm-icon">🎨</span><span>Paint</span></div>
+                <div class="start-menu-sep"></div>
+                <div class="start-menu-item"><span class="sm-icon">⚙️</span><span>Painel de Controle</span></div>
+                <div class="start-menu-item shutdown-item"><span class="sm-icon power">⏻</span><span>Desligar</span></div>
+            </div>
+        </div>
+        <div class="start-menu-right">
+            <div class="user-profile">
+                <div class="user-avatar"></div>
+                <div class="user-name">Usuário</div>
+            </div>
+            <div class="recent-list">
+                <div class="recent-item">📁 Documentos</div>
+                <div class="recent-item">🖼️ Imagens</div>
+                <div class="recent-item">🎵 Músicas</div>
+                <div class="recent-item">💻 Computador</div>
+            </div>
         </div>
     </div>
 
