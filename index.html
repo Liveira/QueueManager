@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 7 - Desktop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- DESKTOP -->
+    <div id="desktop" class="desktop">
+        <!-- Ícones do Desktop -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-app="computer">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='6' y='6' width='36' height='24' fill='%23666' stroke='%23333' stroke-width='2'/%3E%3Crect x='20' y='30' width='8' height='4' fill='%23666'/%3E%3Crect x='18' y='34' width='12' height='2' fill='%23666'/%3E%3C/svg%3E" alt="Computer">
+                <span>Computador</span>
+            </div>
+            <div class="desktop-icon" data-app="recycle">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M8 18h32v24H8z' fill='%23FF6B35' stroke='%23333' stroke-width='2'/%3E%3Cpath d='M12 12h8M28 12h8M18 12v6M30 12v6' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E" alt="Recycle Bin">
+                <span>Lixeira</span>
+            </div>
+            <div class="desktop-icon" data-app="notepad">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='8' y='6' width='32' height='36' fill='%23FFF' stroke='%23333' stroke-width='2'/%3E%3Cline x1='10' y1='12' x2='38' y2='12' stroke='%23CCC' stroke-width='1'/%3E%3Cline x1='10' y1='18' x2='38' y2='18' stroke='%23CCC' stroke-width='1'/%3E%3Cline x1='10' y1='24' x2='38' y2='24' stroke='%23CCC' stroke-width='1'/%3E%3Cline x1='10' y1='30' x2='38' y2='30' stroke='%23CCC' stroke-width='1'/%3E%3Cline x1='10' y1='36' x2='38' y2='36' stroke='%23CCC' stroke-width='1'/%3E%3C/svg%3E" alt="Notepad">
+                <span>Bloco de Notas</span>
+            </div>
+            <div class="desktop-icon" data-app="explorer">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 8h20l6 6v24H6z' fill='%23FFD966' stroke='%23333' stroke-width='2'/%3E%3Cpath d='M6 14h32' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E" alt="Explorer">
+                <span>Explorador de Arquivos</span>
+            </div>
+            <div class="desktop-icon" data-app="internet">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='18' fill='%234169E1' stroke='%23333' stroke-width='2'/%3E%3Cpath d='M24 6 A18 18 0 0 1 42 24' fill='none' stroke='%238DB3FF' stroke-width='1'/%3E%3Cpath d='M6 24 A18 18 0 0 0 24 42' fill='none' stroke='%238DB3FF' stroke-width='1'/%3E%3C/svg%3E" alt="Internet Explorer">
+                <span>Internet Explorer</span>
+            </div>
+            <div class="desktop-icon" data-app="calculator">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='6' y='6' width='36' height='36' fill='%23DDD' stroke='%23333' stroke-width='2'/%3E%3Crect x='8' y='8' width='32' height='8' fill='%23FFF' stroke='%23999' stroke-width='1'/%3E%3Crect x='8' y='18' width='7' height='6' fill='%23CCC' stroke='%23999' stroke-width='1' rx='2'/%3E%3Crect x='16' y='18' width='7' height='6' fill='%23CCC' stroke='%23999' stroke-width='1' rx='2'/%3E%3Crect x='24' y='18' width='7' height='6' fill='%23CCC' stroke='%23999' stroke-width='1' rx='2'/%3E%3C/svg%3E" alt="Calculator">
+                <span>Calculadora</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASKBAR -->
+    <div class="taskbar">
+        <div class="taskbar-left">
+            <button class="start-button" id="startBtn">
+                <span class="start-icon">⊞</span>
+                <span class="start-text">Iniciar</span>
+            </button>
+            <div class="quick-launch">
+                <!-- Ícones de inicialização rápida serão adicionados aqui -->
+            </div>
+        </div>
+        <div class="taskbar-middle" id="taskbarMiddle">
+            <!-- Aplicações abertas aparecem aqui -->
+        </div>
+        <div class="taskbar-right">
+            <div class="system-tray">
+                <div class="tray-icon volume">🔊</div>
+                <div class="tray-icon network">📡</div>
+                <div class="tray-icon battery">🔋</div>
+                <div class="clock" id="clock">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- START MENU -->
+    <div id="startMenu" class="start-menu hidden">
+        <div class="start-menu-left">
+            <div class="start-menu-items">
+                <div class="start-menu-item">
+                    <span class="icon">📄</span>
+                    <span>Documentos</span>
+                </div>
+                <div class="start-menu-item">
+                    <span class="icon">🖼️</span>
+                    <span>Imagens</span>
+                </div>
+                <div class="start-menu-item">
+                    <span class="icon">🎵</span>
+                    <span>Músicas</span>
+                </div>
+                <div class="start-menu-item">
+                    <span class="icon">🎬</span>
+                    <span>Vídeos</span>
+                </div>
+                <hr>
+                <div class="start-menu-item">
+                    <span class="icon">⚙️</span>
+                    <span>Painel de Controle</span>
+                </div>
+                <div class="start-menu-item">
+                    <span class="icon">🔧</span>
+                    <span>Configurações</span>
+                </div>
+                <hr>
+                <div class="start-menu-item shutdown-item">
+                    <span class="icon">⏻️</span>
+                    <span>Desligar</span>
+                </div>
+            </div>
+        </div>
+        <div class="start-menu-right">
+            <div class="start-menu-programs">
+                <h3>Programas Recentes</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- WINDOWS/APLICAÇÕES -->
+    <div id="windowsContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
